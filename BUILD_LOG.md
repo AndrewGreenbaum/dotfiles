@@ -1,13 +1,10 @@
-# Build Log
+# Build Log (Dotfiles)
 
-## v1
-Set up baseline project structure and first runnable workflow.
+## Iteration 1
+Added DNS-over-TLS config with direct install instructions.
 
-## v2
-Hardened operational docs, removed sensitive patterns, and standardized environment placeholders.
+## Iteration 2
+Added security policy baseline and secret scan automation.
 
-## v3
-Added security controls: CI secret scanning, pre-commit scanning, and security policy docs.
-
-## v4
-Added interview-focused artifacts (`DECISIONS.md`, `KNOWN_LIMITATIONS.md`, `DEMO.md`) to show reasoning and tradeoffs.
+## Iteration 3
+Expanded documentation to include verification and rollback workflows.

@@ -1,6 +1,5 @@
-# Known Limitations
+# Known Limitations (Dotfiles)
 
-- Some workflows still depend on external providers and can fail due to transient upstream outages.
-- Local environment setup is not fully one-command across all OS variants.
-- Observability is mostly log-driven; deeper metrics/alerting can be expanded.
-- Security scanning currently focuses on committed content; runtime misconfiguration checks can be improved.
+- Scope is intentionally narrow; this is not a full workstation bootstrap repo.
+- Configuration targets systemd-resolved environments and may need adaptation elsewhere.
+- Validation is command-based; automated host checks are not included yet.
