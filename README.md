@@ -1,43 +1,30 @@
-# Dotfiles
+# DNS over TLS configuration
 
-Small, explicit system configuration repository for my local environment.
+A systemd-resolved drop-in that uses Cloudflare DNS over TLS. It is for Linux systems running systemd-resolved, not macOS.
 
-## What’s Here
+Before installing, check that the service is active:
 
-- `dns-over-tls.conf`: systemd-resolved drop-in enabling DNS-over-TLS.
-- Security baseline docs (`SECURITY.md`) and process notes.
+```sh
+systemctl is-active systemd-resolved
+resolvectl status
+```
 
-## Why This Exists
+Back up any existing `/etc/systemd/resolved.conf.d/dns-over-tls.conf`. Then, from this repository:
 
-I keep system-level tweaks versioned so they are reviewable, reversible, and reproducible across reinstalls.
-
-## Install
-
-```bash
-sudo mkdir -p /etc/systemd/resolved.conf.d
-sudo cp dns-over-tls.conf /etc/systemd/resolved.conf.d/
+```sh
+sudo install -d /etc/systemd/resolved.conf.d
+sudo install -m 0644 dns-over-tls.conf /etc/systemd/resolved.conf.d/dns-over-tls.conf
 sudo systemctl restart systemd-resolved
+resolvectl status
+resolvectl query example.com
 ```
 
-## Verify
+The `#cloudflare-dns.com` suffix sets the TLS server name. `DNSOverTLS=yes` requires encrypted connections for these servers, so name resolution can fail on networks that block the connection.
 
-```bash
-resolvectl status | sed -n '1,120p'
-```
+Per-link DNS from DHCP, NetworkManager, or a VPN can affect routing. Check `resolvectl status` for each link; this drop-in alone does not establish that every application uses encrypted DNS.
 
-## Rollback
+To undo the change, restore your previous drop-in (or remove this file if none existed) and restart systemd-resolved. Leave unrelated resolver settings in place.
 
-```bash
-sudo rm -f /etc/systemd/resolved.conf.d/dns-over-tls.conf
-sudo systemctl restart systemd-resolved
-```
+Configuration reference: https://www.freedesktop.org/software/systemd/man/latest/resolved.conf.html
 
-## Tradeoffs
-
-- Privacy/integrity gain from encrypted DNS.
-- Dependency on compatible resolver behavior and network path.
-
-## Interview Talking Points
-
-- Why I version infra/system config, not just app code.
-- How I validate and rollback low-level config safely.
+The configuration syntax was reviewed on macOS. Runtime DNS behavior still needs verification on a Linux system using systemd-resolved.
