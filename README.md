@@ -1,4 +1,4 @@
-# DNS over TLS configuration
+# Linux DNS over TLS Configuration
 
 A systemd-resolved drop-in that uses Cloudflare DNS over TLS. It is for Linux systems running systemd-resolved, not macOS.
 
