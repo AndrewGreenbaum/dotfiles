@@ -27,4 +27,4 @@ To undo the change, restore your previous drop-in (or remove this file if none e
 
 Configuration reference: https://www.freedesktop.org/software/systemd/man/latest/resolved.conf.html
 
-The configuration syntax was reviewed on macOS. Runtime DNS behavior still needs verification on a Linux system using systemd-resolved.
+This configuration has not yet been tested on a live Linux host. After installing, check name resolution and any VPN or network profiles you use.
